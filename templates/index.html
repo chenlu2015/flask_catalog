@@ -3,21 +3,27 @@
  
 <head>
     <title>Catalog App</title>
- 
+    
     <link rel="stylesheet" type="text/css" href="../static/lib/bootstrap.min.css">
- 
-
+    <link rel="stylesheet" type="text/css" href="../static/lib/font-awesome-4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/client/main.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
 </head>
  
 <body>
-    <div ng-include src="'/static/client/shared/header/header.html'" ng-controller="headerCtrl"></div>
-    <div ng-view></div>
-    <div ng-include src="'/static/client/shared/footer/footer.html'" ng-controller="footerCtrl"></div>
+    <!-- <div ng-include src="'/static/client/shared/header/header.html'" ng-controller="headerCtrl"></div> -->
+    <div class="container">
+        <div ng-view></div>
+        <div ng-include src="'/static/client/shared/footer/footer.html'" ng-controller="footerCtrl"></div>
+    </div>
 
 
     <!-- script dependencies -->
     <script type="text/javascript" src="../static/lib/angular.min.js"></script>
     <script type="text/javascript" src="../static/lib/angular-route.min.js"></script>
+
+    <script type="text/javascript" src="../static/lib/angular-strap.min.js"></script>
+    <script type="text/javascript" src="../static/lib/angular-strap.tpl.min.js"></script>
     
     <script type="text/javascript" src="../static/client/app.js"></script>
     <script type="text/javascript" src="../static/client/shared/header/headerController.js"></script>
@@ -27,6 +33,9 @@
     <script type="text/javascript" src="../static/client/components/landing/landingController.js"></script>
     <script type="text/javascript" src="../static/client/components/profile/profileController.js"></script>
     <script type="text/javascript" src="../static/client/components/browse/browseController.js"></script>
+
+
+    <script type="text/javascript" src="../static/client/shared/data/categoryService.js"></script>
 </body>
  
 </html>

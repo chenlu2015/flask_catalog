@@ -5,34 +5,10 @@ from sqlalchemy.orm.exc import NoResultFound
 from database_setup import Base, Category, User, CatalogItem
 from json import dumps
 
-def to_json(model):
-    """ Returns a JSON representation of an SQLAlchemy-backed object.
-    """
-    json = {}
-    json['fields'] = {}
-    json['pk'] = getattr(model, 'id')
-
-    for col in model._sa_class_manager.mapper.mapped_table.columns:
-        json['fields'][col.name] = getattr(model, col.name)
-
-    return dumps([json])
 
 app = Flask(__name__)
-engine = create_engine('postgresql+psycopg2://force:force@localhost/force')
+engine = create_engine('postgresql+psycopg2://lolitschen:n5ryxcue@localhost/lolitschen')
 Base.metadata.bind = engine
-
-categories = [
-    {
-        'id': 1,
-        'name': u'Sports Equipment',
-        'description': u'Equipment for all different kinds of sports.'
-    },
-    {
-        'id': 2,
-        'title': u'Computer Hardware',
-        'description': u'All kinds of hardware for computers: PSU, GPU, CPU, SSD, HDD, etc.'
-    }
-]
 
 #Application Routes
 @app.route("/")
@@ -67,7 +43,7 @@ def new_category():
 		session.commit()
 		session.close()
 		#print 'closing session'
-		return redirect(url_for('new_category'), code=302)
+		return redirect(url_for('get_categories'), code=302)
 	elif request.method == 'GET':
 		return render_template('new_category_form.html')
 	else:
@@ -116,6 +92,8 @@ def edit_category(category_id):
 	else:
 		abort(400)
 
+@app.route("/api/v1.0/categories/<int:category_id>/delete/", methods=['GET'])
+
 #error handling
 @app.errorhandler(404)
 def not_found(error):
@@ -127,4 +105,16 @@ if __name__ == "__main__":
 
 
 
+#helper functions
 
+def to_json(model):
+    """ Returns a JSON representation of an SQLAlchemy-backed object.
+    """
+    json = {}
+    json['fields'] = {}
+    json['pk'] = getattr(model, 'id')
+
+    for col in model._sa_class_manager.mapper.mapped_table.columns:
+        json['fields'][col.name] = getattr(model, col.name)
+
+    return dumps([json])
